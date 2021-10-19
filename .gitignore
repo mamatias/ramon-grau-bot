@@ -1,0 +1,3 @@
+.vscode/launch.json
+.venv/*
+rgbot/__pycache__/*

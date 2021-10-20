@@ -1,6 +1,4 @@
-from rgbot.rgbot import rgbot
-import rgbot.rgbot
+from src.rgbot import Bot
 
 if __name__ == '__main__':
-    a = rgbot.rgbot()
-    print(a.__version__)
+    Bot().prueba()

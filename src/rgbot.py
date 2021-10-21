@@ -16,9 +16,17 @@ class Bot:
             self.access_key,
             self.access_secret)
 
+        self.client = tweepy.API(self.auth)
+
     def demo(self):
-        api = tweepy.API(self.auth)
-        
-        public_tweets = api.home_timeline()
+        public_tweets = self.client.home_timeline()
         for tweet in public_tweets:
             print(tweet.text)
+            print('\n\n')
+
+    def getUtilLastTweets(self,idUser, qtyTweets=1):
+        lastTweet = self.client.user_timeline(screen_name=idUser, count=qtyTweets)
+        return lastTweet
+
+    def postNewTweet(self, tweet='hola...'):
+        pass

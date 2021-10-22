@@ -1,6 +1,7 @@
 import json
 from src.rgbot import Bot
 import src.utiutil as myutil
+from src.generator import generador
 from decouple import config
 
 def main():
@@ -22,12 +23,16 @@ def main():
     bot.connect()
 
     # Obtenemos el último tweet del usuario de interés
-    lastTweet = (bot.getUtilLastTweets(idUser='ManuelDTP', qtyTweets=1))[0].text
+    lastTweet = (bot.getUtilLastTweets(idUser='ramonlopez54', qtyTweets=1))[0].text
     if lastTweet == None:
         print('No hay last tweet aun!')
     else:
         # convert object to string
         print(lastTweet)
+
+    Gen = generador()
+    texto = Gen.generarTexto(lastTweet)
+    print(texto[0])
 
     # Shuffle de letras en el tweet
     lastTweetShuffled = myutil.randomizeString(lastTweet)

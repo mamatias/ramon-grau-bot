@@ -7,7 +7,7 @@ class Bot:
         self.access_key = access_key
         self.access_secret = access_secret
     
-    def connect(self):
+    def conectar(self):
         self.auth = tweepy.OAuthHandler(
             self.consumer_key,
             self.consumer_secret)
@@ -24,9 +24,52 @@ class Bot:
             print(tweet.text)
             print('\n\n')
 
-    def getUtilLastTweets(self,idUser, qtyTweets=1):
-        lastTweet = self.client.user_timeline(screen_name=idUser, count=qtyTweets)
-        return lastTweet
+    def obtenerUltimosTuits(self,idUsuario, cantidadTuits=1):
+        ultimosTuits = self.client.user_timeline(screen_name=idUsuario, count=cantidadTuits)
+        return ultimosTuits
 
-    def postNewTweet(self, tweet='hola...'):
+    def posteaNuevoTuit(self, tuit='hola...'):
         pass
+
+
+# Funciones úitles
+def clasificaTuit(tuit='RT Ejemplo de tuit tipo retwittear',respuesta=None, tuitId=None, rt=None):
+    # Retuit
+    if rt != None:
+        return {
+            'id'            : tuitId,
+            'tipo'          : 'Retuit',
+            'respuesta'     : respuesta,
+            'sigla'         : 'RT',
+            'tuit'          : tuit[3:]
+        }
+    
+    # Respeusta o reply
+    elif respuesta != None:
+        return {
+            'id'            : tuitId,
+            'tipo'          : 'Respuesta',
+            'respuesta'     : respuesta,
+            'sigla'         : 'RPLY',
+            'tuit'          : tuit
+        }
+
+    # Cita
+    elif 'https://t.co/' in tuit:
+        return {
+            'id'            : tuitId,
+            'tipo'          : 'Cita',
+            'respuesta'     : respuesta,
+            'sigla'         : 'CITA',
+            'tuit'          : tuit
+        }
+
+    # Default normal
+    else:
+        return {
+            'id'            : tuitId,
+            'tipo'          : 'Normal',
+            'respuesta'     : respuesta,
+            'sigla'         : 'DFLT',
+            'tuit'          : tuit
+        }

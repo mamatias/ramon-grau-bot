@@ -25,8 +25,28 @@ class Bot:
             print('\n\n')
 
     def obtenerUltimosTuits(self,idUsuario, cantidadTuits=1):
-        ultimosTuits = self.client.user_timeline(screen_name=idUsuario, count=cantidadTuits)
-        return ultimosTuits
+        tweets = self.client.user_timeline(screen_name=idUsuario, count=cantidadTuits)
+        # Objeto a retornar
+        ultimosTuits = []
+
+        # Si los tweets son nulos, se retorna arreglo vacío
+        if tweets != None:
+            # Se recorre el arreglo de tweets para almacenarlos en un formato más amigables
+            for tweet in tweets:
+                tweetObj = tweet._json
+                obj = clasificaTuit(
+                    tuit=tweetObj.get('text'),
+                    respuesta=tweetObj.get('in_reply_to_status_id'),
+                    tuitId=tweetObj.get('id'),
+                    rt=tweetObj.get('retweeted_status')
+                )
+                ultimosTuits.append(obj)
+            # Se acumularon en el arreglo el "tuit" pero en formato amigable
+            return ultimosTuits
+
+        else:
+            # Se retorna el arreglo vacío
+            return ultimosTuits
 
     def posteaNuevoTuit(self, tuit='hola...'):
         pass

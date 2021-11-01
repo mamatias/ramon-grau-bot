@@ -19,7 +19,7 @@ class Tacho:
                 'boolean':False
             }]
         }]
-        self.rutaTacho = '.tacho/{0}.tch'.format(nombreTacho)
+        self.rutaTacho = '.tacho/{0}.json'.format(nombreTacho)
         self.estado = 'iniciado'
         self.debug = debug
 
@@ -32,7 +32,7 @@ class Tacho:
         print(self.__version__)
 
     # Leer un tacho desde un archivo
-    def leerTacho(self, nombreTacho='tacho'):
+    def leerTacho(self):
         # Primero se chequea que exista el archivo y luego se carga lo que corresponda
         if os.path.isfile(self.rutaTacho):
             # Existe y se carga
@@ -47,7 +47,7 @@ class Tacho:
 
 
     # Escribir un tacho en un archivo tch
-    def escribirTacho(self, forzar=False):
+    def escribirTacho(self):
         # Se pregunta que no exista el tacho
         if os.path.isfile(self.rutaTacho):
             # Existe y por ende se borra y se crea nuevamente

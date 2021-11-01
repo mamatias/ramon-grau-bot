@@ -1,9 +1,10 @@
-from transformers import AutoTokenizer, AutoModelWithLMHead
+from transformers import AutoTokenizer, AutoModelWithLMHead, AutoModelForCausalLM
 
 class generador:
     def __init__(self, modelName='datificate/gpt2-small-spanish') -> None:
         self.tokenizer = AutoTokenizer.from_pretrained(modelName)
-        self.model = AutoModelWithLMHead.from_pretrained(modelName)
+        # self.model = AutoModelWithLMHead.from_pretrained(modelName)
+        self.model = AutoModelForCausalLM.from_pretrained(modelName)
         
     def generarTexto(self, prompt='Hola loco lindo, planteó feliz'):
         inputs = self.tokenizer(prompt, add_special_tokens=False, return_tensors="pt")["input_ids"]
